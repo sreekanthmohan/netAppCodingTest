@@ -1,0 +1,11 @@
+<div class="dropdown-wrapper">
+        <input type="text" autocomplete="off" (click)="onInputClick()" data-toggle="dropdown" name="search"
+            placeholder="Search.." [(ngModel)]="inputItem" (keyup)="onkeyup($event.target.value)">
+        <ul class="dropdown-menu" *ngIf="filteredList && filteredList?.length">
+            <li class="list-item" *ngFor="let data of filteredList" (click)="onItemSelection(data)">
+                <div class="col-md-12">
+                    {{data.name}}
+                </div>
+            </li>
+        </ul>
+</div>

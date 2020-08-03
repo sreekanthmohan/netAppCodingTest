@@ -1,0 +1,11 @@
+<div class="dashboard-wrapper">
+    <div *ngIf="userData">
+        <h1>Search Users</h1>
+        <app-dropdown [list]="userData" (selectItem)="itemSelcted($event)"></app-dropdown>
+    </div>
+
+    <div *ngIf="productData" class="products-wrapper">
+        <h1>Search Products</h1>
+        <app-dropdown [list]="productData" (selectItem)="itemSelcted($event)"></app-dropdown>
+    </div>
+</div>
