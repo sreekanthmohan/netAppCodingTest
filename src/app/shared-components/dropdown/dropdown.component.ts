@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { TestDataInterface } from 'src/app/models/common.model';
 
 @Component({
@@ -9,10 +9,12 @@ import { TestDataInterface } from 'src/app/models/common.model';
 export class DropdownComponent implements OnInit {
 
   @Input() list: TestDataInterface[];
+  @Input() header: string;
   @Output() selectItem = new EventEmitter<TestDataInterface>();
 
   inputItem: string;
   filteredList: TestDataInterface[];
+  canShow: boolean;
 
   constructor() { }
 
@@ -29,6 +31,7 @@ export class DropdownComponent implements OnInit {
   onInputClick() {
     if (!this.inputItem) {
       this.filteredList = [...this.list];
+      this.canShow = !this.canShow;
     }
   }
 
