@@ -27,14 +27,16 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.handleData();
+    this.addSubscriptions();
+  }
+
+  addSubscriptions() {
     this.users$.subscribe((users: User[]) => {
       if (users) this.companyFilter = this.getCompanyFlter(users);
-      // console.log('users', users);
     });
     this.filters$.subscribe((resp: FilterInterface[]) => {
       if (!resp || resp.filter) return;
       this.companyFilterUpdate = [...resp];
-      // console.log('filters', resp);
     });
   }
 
@@ -44,8 +46,8 @@ export class DashboardComponent implements OnInit {
         id: user.id,
         name: user.company,
         isSelected: false,
-      }
-    })
+      };
+    });
     return companyFilter;
   }
 
@@ -54,7 +56,6 @@ export class DashboardComponent implements OnInit {
     if (!this.commonService.isDataAvailable()) {
       this.commonService.setData();
       this.userActions.getUsers();
-      // this.userActions.getFilters();
     } else {
       this.userActions.getUsers();
     }

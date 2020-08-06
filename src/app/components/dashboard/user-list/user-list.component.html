@@ -3,9 +3,9 @@
         <div class="user-card-wrapper">
             <span *ngFor="let user of userData">
                 <mat-card *ngIf="user?.isSelected" class="user-card">
-                    <div>User Id: {{user.id}}</div>
-                    <div>User Name: {{user.name}}</div>
-                    <div>Company: {{user.company}}</div>
+                    <div>{{constants.userId}}: {{user.id}}</div>
+                    <div>{{constants.userName}}: {{user.name}}</div>
+                    <div>{{constants.company}}: {{user.company}}</div>
                 </mat-card>
             </span>
         </div>

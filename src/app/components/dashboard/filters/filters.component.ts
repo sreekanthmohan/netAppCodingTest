@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { FilterInterface } from 'src/app/models/common.model';
 import { select } from '@angular-redux/store';
 import { UsersActions } from 'src/app/actions/users.actions';
+import { CommonConstants } from '../../../constants/common-constants'
 
 @Component({
   selector: 'app-filters',
@@ -12,9 +13,11 @@ import { UsersActions } from 'src/app/actions/users.actions';
 export class FiltersComponent implements OnInit {
 
   @select(['userDatas', 'filters']) public filters$: Observable<FilterInterface[]>;
+
   filters: FilterInterface[] = [];
   displayFilter: FilterInterface[] = [];
-  apply = false;
+
+  constants = CommonConstants;
 
   constructor(public userActions: UsersActions) { }
 

@@ -1,16 +1,14 @@
 <mat-card class="mat-card">
-    <div *ngIf="filters && filters?.length;else noFilter">
-        <mat-form-field class="example-chip-list">
-            <mat-chip-list #chipList aria-label="Fruit selection">
-                <span *ngFor="let filter of filters">
-                    <mat-chip *ngIf="filter?.isSelected" (removed)="removeFilter(filter)">
-                        {{filter.name}}
-                        <mat-icon matChipRemove>cancel</mat-icon>
-                    </mat-chip>
-                </span>
-            </mat-chip-list>
-        </mat-form-field>
-        <button (click)="applyFilter()" mat-raised-button>Apply</button>
-    </div>
-    <ng-template #noFilter>No Filters Added</ng-template>
+    <div>{{constants.filters}}</div>
+    <mat-form-field class="example-chip-list">
+        <mat-chip-list #chipList aria-label="Fruit selection">
+            <span *ngFor="let filter of filters">
+                <mat-chip *ngIf="filter?.isSelected" (removed)="removeFilter(filter)">
+                    {{filter.name}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+            </span>
+        </mat-chip-list>
+    </mat-form-field>
+    <button (click)="applyFilter()" mat-raised-button>{{constants.apply}}</button>
 </mat-card>
