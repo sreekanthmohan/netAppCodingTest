@@ -1,18 +1,15 @@
 import { combineReducers } from 'redux';
 
 import { UsersReducer } from './users.reducer';
-import { FiltersReducer } from './filters.reducer';
-import { Users, FilterInterface } from '../models/common.model';
+import { UserDatas } from '../models/common.model';
 // import { Users } from '../model/users';
 
 export class IAppState {
-  users: Users;
-  filters: FilterInterface[];
+  userDatas: UserDatas;
 }
 
 export const rootReducer = combineReducers<IAppState>({
-  users: UsersReducer,
-  filters: FiltersReducer,
+  userDatas: UsersReducer,
 });
 
 

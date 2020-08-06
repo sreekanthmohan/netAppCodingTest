@@ -12,7 +12,6 @@ import { IAppState, rootReducer } from './store';
 import { UsersActions } from './actions/users.actions';
 import { UserListComponent } from './components/dashboard/user-list/user-list.component';
 import { FiltersComponent } from './components/dashboard/filters/filters.component';
-import { FilterActions } from './actions/filter.actions';
 import { MaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -32,7 +31,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MaterialModule,
     BrowserAnimationsModule
   ],
-  providers: [UsersActions, FilterActions],
+  providers: [UsersActions],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

@@ -1,6 +1,6 @@
 <mat-card class="mat-card">
-    <div *ngIf="filters && filters?.length">
-        <mat-form-field class="example-chip-list w-100">
+    <div *ngIf="filters && filters?.length;else noFilter">
+        <mat-form-field class="example-chip-list">
             <mat-chip-list #chipList aria-label="Fruit selection">
                 <span *ngFor="let filter of filters">
                     <mat-chip *ngIf="filter?.isSelected" (removed)="removeFilter(filter)">
@@ -10,8 +10,7 @@
                 </span>
             </mat-chip-list>
         </mat-form-field>
+        <button (click)="applyFilter()" mat-raised-button>Apply</button>
     </div>
+    <ng-template #noFilter>No Filters Added</ng-template>
 </mat-card>
-<!-- <ng-template #noFilter>
-    Click the checkbox above to reveal hidden content!
-</ng-template> -->

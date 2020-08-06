@@ -1,27 +1,30 @@
 import { UsersActions } from '../actions/users.actions';
-import { Users } from '../models/common.model';
+import { UserDatas } from '../models/common.model';
 // import { Users } from '../model/users';
 
-const INITIAL_STATE: Users = {
-  list: [],
+const INITIAL_STATE: UserDatas = {
+  users: [],
+  filters: [],
+  applyFilter: false
 };
 
-export function UsersReducer(state: Users = INITIAL_STATE, action: any): any {
-  let index, active, list;
+export function UsersReducer(state: UserDatas = INITIAL_STATE, action: any): any {
 
   switch (action.type) {
     case UsersActions.USERS_GET:
-      return Object.assign({}, state, { list: action.payload.list });
+      const users = action.payload.users;
+      return Object.assign({}, state, { users });
 
-    // case UsersActions.USERS_GET_ACTIVE:
-    //   return state.active;
+    case UsersActions.FILTERS_GET:
+      return state.filters;
 
-    // case UsersActions.USERS_SET_ACTIVE:
-    //   active = state.list.find(({ id }) => id === action.payload.id);
-    //   return Object.assign({}, state, { active });
+    case UsersActions.FILTERS_UPDATE:
+      const filters = action.payload.filters;
+      return Object.assign({}, state, { filters });
 
-    // case UsersActions.USERS_RESET_ACTIVE:
-    //   return Object.assign({}, state, { active: {} });
+    case UsersActions.FILTER_APPLY:
+      const applyFilter = action.payload.applyFilter;
+      return Object.assign({}, state, { applyFilter });
 
     default:
       return state;

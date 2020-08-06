@@ -1,1 +1,13 @@
-<p>user-list works!</p>
+<div class="user-wrapper">
+    <mat-card class="wrapper-card">
+        <div class="user-card-wrapper">
+            <span *ngFor="let user of userData">
+                <mat-card *ngIf="user?.isSelected" class="user-card">
+                    <div>User Id: {{user.id}}</div>
+                    <div>User Name: {{user.name}}</div>
+                    <div>Company: {{user.company}}</div>
+                </mat-card>
+            </span>
+        </div>
+    </mat-card>
+</div>

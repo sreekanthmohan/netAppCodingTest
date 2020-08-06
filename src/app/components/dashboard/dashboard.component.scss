@@ -4,7 +4,12 @@
     // .products-wrapper{
     //     padding-left: 10%;
     // }
-    .filter-selection-wrapper{        
+    height: calc(100vh - 32px);
+    .filter-wrapper{
+        min-height: 17%;
+    }
+    .filter-selection-wrapper{    
+        min-height: 37%;    
         width: 80%;
         margin: auto;
         text-align: center;

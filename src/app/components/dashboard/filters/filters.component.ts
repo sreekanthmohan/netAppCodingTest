@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FilterInterface } from 'src/app/models/common.model';
 import { select } from '@angular-redux/store';
-import { FilterActions } from 'src/app/actions/filter.actions';
+import { UsersActions } from 'src/app/actions/users.actions';
 
 @Component({
   selector: 'app-filters',
@@ -11,11 +11,12 @@ import { FilterActions } from 'src/app/actions/filter.actions';
 })
 export class FiltersComponent implements OnInit {
 
-  @select('filters') public filters$: Observable<FilterInterface[]>;
+  @select(['userDatas', 'filters']) public filters$: Observable<FilterInterface[]>;
   filters: FilterInterface[] = [];
   displayFilter: FilterInterface[] = [];
+  apply = false;
 
-  constructor(private filterActions: FilterActions) { }
+  constructor(public userActions: UsersActions) { }
 
   ngOnInit() {
     this.filters$.subscribe((filters: FilterInterface[]) => {
@@ -26,7 +27,11 @@ export class FiltersComponent implements OnInit {
   removeFilter(filter: FilterInterface) {
     const removedFilter = this.filters.find(item => item.id === filter.id);
     if (removedFilter) removedFilter.isSelected = false;
-    this.filterActions.updateFilters(this.filters);
+    this.userActions.updateFilters(this.filters);
+  }
+
+  applyFilter() {
+    this.userActions.applyFilter(true);
   }
 
 }

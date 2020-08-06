@@ -1,5 +1,7 @@
-export interface Users {
-    list: User[];
+export interface UserDatas {
+    users: User[];
+    filters: FilterInterface[];
+    applyFilter: boolean;
 }
 
 export interface User {

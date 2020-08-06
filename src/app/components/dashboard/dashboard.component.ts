@@ -1,12 +1,11 @@
 import { Component, OnInit, ApplicationRef } from '@angular/core';
 import { CommonService } from '../../services/common.service';
-import { FilterInterface, Users } from 'src/app/models/common.model';
+import { FilterInterface, User } from 'src/app/models/common.model';
 import { UserService } from 'src/app/services/user.service';
 import { combineLatest, Observable } from 'rxjs';
 import { CommonConstants } from 'src/app/constants/common-constants';
 import { select } from '@angular-redux/store';
 import { UsersActions } from 'src/app/actions/users.actions';
-import { FilterActions } from 'src/app/actions/filter.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,37 +14,32 @@ import { FilterActions } from 'src/app/actions/filter.actions';
 })
 export class DashboardComponent implements OnInit {
 
-  userData: Array<Users>;
   companyFilter: Array<FilterInterface>;
   companyFilterUpdate: Array<FilterInterface>;
 
-  @select('users') public users$: Observable<Users>;
-  @select('filters') public filters$: Observable<FilterInterface[]>;
+  @select(['userDatas', 'users']) public users$: Observable<User[]>;
+  @select(['userDatas', 'filters']) public filters$: Observable<FilterInterface[]>;
 
   constants = CommonConstants;
 
   constructor(private commonService: CommonService,
-    private userService: UserService,
-    public userActions: UsersActions,
-    private filterActions: FilterActions) {
-
-  }
+    private userActions: UsersActions) { }
 
   ngOnInit() {
     this.handleData();
-    this.users$.subscribe((users: Users) => {
+    this.users$.subscribe((users: User[]) => {
       if (users) this.companyFilter = this.getCompanyFlter(users);
-
+      // console.log('users', users);
     });
     this.filters$.subscribe((resp: FilterInterface[]) => {
       if (!resp || resp.filter) return;
       this.companyFilterUpdate = [...resp];
+      // console.log('filters', resp);
     });
   }
 
-  getCompanyFlter(users: Users) {
-    // return 
-    const companyFilter: Array<FilterInterface> = users.list.map(user => {
+  getCompanyFlter(users) {
+    const companyFilter: Array<FilterInterface> = users.map(user => {
       return {
         id: user.id,
         name: user.company,
@@ -60,13 +54,13 @@ export class DashboardComponent implements OnInit {
     if (!this.commonService.isDataAvailable()) {
       this.commonService.setData();
       this.userActions.getUsers();
-      this.filterActions.getFilters();
+      // this.userActions.getFilters();
     } else {
       this.userActions.getUsers();
     }
   }
 
   companyFilters(item: FilterInterface[]) {
-    this.filterActions.updateFilters(item);
+    this.userActions.updateFilters(item);
   }
 }
