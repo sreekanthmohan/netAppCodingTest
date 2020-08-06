@@ -15,7 +15,3 @@ export interface FilterInterface {
     name: string;
     isSelected: boolean;
 }
-
-export interface Filters {
-    filters: FilterInterface[];
-}

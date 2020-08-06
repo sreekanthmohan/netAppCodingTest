@@ -11,7 +11,7 @@ export class DropdownComponent implements OnInit, OnChanges {
   @Input() list: FilterInterface[];
   @Input() listUpdate: FilterInterface[];
   @Input() header: string;
-  @Output() selectedFilters = new EventEmitter<FilterInterface>();
+  @Output() selectedFilters = new EventEmitter<FilterInterface[]>();
 
   inputItem: string;
   filteredList: FilterInterface[];
@@ -22,10 +22,11 @@ export class DropdownComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.listUpdate) {
-      if (!this.listUpdate.length && this.filteredList) {
+      if(!this.list || this.list.length) return;
+      if (!this.listUpdate.length) {
         this.resetFilter();
       } else {
-        this.updateFilter(this.listUpdate)
+        this.updateFilter(this.listUpdate);
       }
     }
     // console.log(changes)
@@ -42,10 +43,12 @@ export class DropdownComponent implements OnInit, OnChanges {
   }
 
   updateFilter(listUpdate: Array<FilterInterface>) {
+    const newList = [...this.filteredList];
     listUpdate.forEach(item => {
-      const itemAdded = this.filteredList.find(data => data.id === item.id);
-      if (item.isSelected && itemAdded) itemAdded.isSelected = true;
-    })
+      const itemAdded = newList.find(data => data.id === item.id);
+      if (itemAdded) itemAdded.isSelected = true;
+    });
+    console.log('newlist', newList);
   }
 
   resetFilter() {
@@ -72,11 +75,12 @@ export class DropdownComponent implements OnInit, OnChanges {
   //   console.log('added', this.filters);
   // }
 
-  onFilterSelection(item: FilterInterface) {
-    // console.log('item', item);
+  onFilterSelection(list: FilterInterface[]) {
+    // console.log('list', this.list);
+    // console.log('item', this.filteredList);
 
     // this.inputItem = item.name;
-    this.selectedFilters.emit(item);
+    this.selectedFilters.emit(list);
     // this.resetForm();
   }
 

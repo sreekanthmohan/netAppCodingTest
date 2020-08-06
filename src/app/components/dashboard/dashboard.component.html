@@ -2,7 +2,7 @@
     <div>
         <app-filters></app-filters>
     </div>
-    <div *ngIf="companyFilter">
+    <div *ngIf="companyFilter" class="filter-selection-wrapper">
         <app-dropdown [list]="companyFilter" [header]="constants.searchUsers"
             (selectedFilters)="companyFilters($event)" [listUpdate]="companyFilterUpdate"></app-dropdown>
     </div>

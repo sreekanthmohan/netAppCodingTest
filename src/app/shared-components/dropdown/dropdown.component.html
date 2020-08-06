@@ -4,6 +4,6 @@
         placeholder="Search.." [(ngModel)]="inputItem" (keyup)="onkeyup($event.target.value)">
     <ul class="dropdown-menu" *ngIf="filteredList && filteredList?.length && canShow">
         <li class="list-item" *ngFor="let data of filteredList">{{data.name}}
-            <input type="checkbox" [(ngModel)]="data.isSelected" (change)="onFilterSelection(data)"></li>
+            <input type="checkbox" [(ngModel)]="data.isSelected" (change)="onFilterSelection(list)"></li>
     </ul>
 </div>

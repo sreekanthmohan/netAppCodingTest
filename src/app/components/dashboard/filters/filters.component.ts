@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Filters, FilterInterface } from 'src/app/models/common.model';
+import { FilterInterface } from 'src/app/models/common.model';
 import { select } from '@angular-redux/store';
 import { FilterActions } from 'src/app/actions/filter.actions';
 
@@ -11,20 +11,22 @@ import { FilterActions } from 'src/app/actions/filter.actions';
 })
 export class FiltersComponent implements OnInit {
 
-  @select('filters') public filters$: Observable<Filters>;
+  @select('filters') public filters$: Observable<FilterInterface[]>;
+  filters: FilterInterface[] = [];
+  displayFilter: FilterInterface[] = [];
 
   constructor(private filterActions: FilterActions) { }
 
   ngOnInit() {
-    this.filters$.subscribe((filters: Filters) => {
-      // if (users) this.companyFilter = this.getCompanyFlter(users);
-      console.log('filters', filters);
-
+    this.filters$.subscribe((filters: FilterInterface[]) => {
+      this.filters = filters;
     });
   }
 
   removeFilter(filter: FilterInterface) {
-    this.filterActions.deleteFilter(filter.id);
+    const removedFilter = this.filters.find(item => item.id === filter.id);
+    if (removedFilter) removedFilter.isSelected = false;
+    this.filterActions.updateFilters(this.filters);
   }
 
 }

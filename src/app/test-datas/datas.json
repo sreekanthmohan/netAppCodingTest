@@ -22,9 +22,9 @@
             "products": null
         },
         {
-            "name": "Netflix",
+            "name": "Bob",
             "id": 23458,
-            "company": "Cisco",
+            "company": "Netflix",
             "isSelected": false,
             "products": null
         }

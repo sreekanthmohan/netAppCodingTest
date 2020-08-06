@@ -1,22 +1,37 @@
 import { NgModule } from '@angular/core';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatRippleModule } from '@angular/material/core';
+
+import {
+  MatToolbarModule,
+  MatMenuModule,
+  MatCardModule,
+  MatButtonModule,
+  MatIconModule,
+  MatChipsModule,
+  MatFormFieldModule,
+  MatRippleModule
+} from '@angular/material';
 
 
 @NgModule({
   imports: [
-    MatChipsModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatRippleModule
+  MatToolbarModule,
+  MatMenuModule,
+  MatCardModule,
+  MatButtonModule,
+  MatIconModule,
+  MatChipsModule,
+  MatFormFieldModule,
+  MatRippleModule
   ],
   exports: [
-    MatChipsModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatRippleModule
+  MatToolbarModule,
+  MatMenuModule,
+  MatCardModule,
+  MatButtonModule,
+  MatIconModule,
+  MatChipsModule,
+  MatFormFieldModule,
+  MatRippleModule
   ],
   declarations: []
 })

@@ -9,6 +9,7 @@ import { FilterInterface } from '../models/common.model';
 @Injectable()
 export class FilterActions {
     static FILTERS_GET = 'FILTERS_GET';
+    static FILTERS_UPDATE = 'FILTERS_UPDATE';
     static FILTERS_ADD = 'FILTERS_ADD';
     static FILTERS_DELETE = 'FILTERS_DELETE';
 
@@ -24,6 +25,15 @@ export class FilterActions {
             type: FilterActions.FILTERS_GET
         });
     }
+
+    updateFilters(filters: FilterInterface[]) {
+        this.ngRedux.dispatch({
+          type: FilterActions.FILTERS_UPDATE,
+          payload: {
+            filters
+          }
+        });
+      }
 
     addFilter(filter: FilterInterface): void {
         this.ngRedux.dispatch({
