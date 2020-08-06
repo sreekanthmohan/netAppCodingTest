@@ -3,6 +3,7 @@
     <input type="text" autocomplete="off" (click)="onInputClick()" data-toggle="dropdown" name="search"
         placeholder="Search.." [(ngModel)]="inputItem" (keyup)="onkeyup($event.target.value)">
     <ul class="dropdown-menu" *ngIf="filteredList && filteredList?.length && canShow">
-        <li class="list-item" *ngFor="let data of filteredList" (click)="onItemSelection(data)">{{data.name}}</li>
+        <li class="list-item" *ngFor="let data of filteredList">{{data.name}}
+            <input type="checkbox" [(ngModel)]="data.isSelected" (change)="onFilterSelection(data)"></li>
     </ul>
 </div>

@@ -1,9 +1,9 @@
 <div class="dashboard-wrapper">
-    <div *ngIf="userData">
-        <app-dropdown [list]="userData" [header]="constants.searchUsers" (selectItem)="itemSelcted($event)"></app-dropdown>
+    <div>
+        <app-filters></app-filters>
     </div>
-
-    <div *ngIf="productData" class="products-wrapper">
-        <app-dropdown [list]="productData" [header]="constants.searchProducts" (selectItem)="itemSelcted($event)"></app-dropdown>
+    <div *ngIf="companyFilter">
+        <app-dropdown [list]="companyFilter" [header]="constants.searchUsers"
+            (selectedFilters)="companyFilters($event)" [listUpdate]="companyFilterUpdate"></app-dropdown>
     </div>
 </div>

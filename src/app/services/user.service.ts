@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TestDataInterface } from '../models/common.model';
+import { User, FilterInterface } from '../models/common.model';
 import { Observable, of } from 'rxjs';
 import { CommonConstants } from '../constants/common-constants';
 
@@ -8,11 +8,19 @@ import { CommonConstants } from '../constants/common-constants';
 })
 export class UserService {
 
-  constructor() { }
+  constructor() {
+  }
 
-  getContent(): Observable<TestDataInterface[]> {
+  getContent(): Observable<User[]> {
     const userData = localStorage.getItem(CommonConstants.userdata);
     const respData = JSON.parse(userData);
     return of(respData);
   }
+
+  getFilters(): Observable<FilterInterface[]> {
+    const filters = localStorage.getItem(CommonConstants.filters);
+    const respData = JSON.parse(filters);
+    return of(respData);
+  }
+  
 }

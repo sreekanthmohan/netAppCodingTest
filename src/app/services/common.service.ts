@@ -11,14 +11,14 @@ export class CommonService {
 
   isDataAvailable() {
     const userData = localStorage.getItem(CommonConstants.userdata);
-    const productData = localStorage.getItem(CommonConstants.productData);
-    return !userData || !productData ? false : true;
+    // const productData = localStorage.getItem(CommonConstants.filterData);
+    return !userData ? false : true;
   }
 
   setData() {
     const userData = JSON.stringify(Datas.userDatas);
-    const productData = JSON.stringify(Datas.productDatas);
+    // const filterData = JSON.stringify([]);
     localStorage.setItem(CommonConstants.userdata, userData);
-    localStorage.setItem(CommonConstants.productData, productData);
+    // localStorage.setItem(CommonConstants.filterData, filterData);
   }
 }

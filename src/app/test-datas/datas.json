@@ -2,19 +2,31 @@
     "userDatas": [
         {
             "name": "Kevin",
-            "id": 22318
+            "id": 22318,
+            "company": "Cisco",
+            "isSelected": false,
+            "products": null
         },
         {
             "name": "Don",
-            "id": 21238
+            "id": 21238,
+            "company": "Adobe",
+            "isSelected": false,
+            "products": null
         },
         {
             "name": "Stuart",
-            "id": 23248
+            "id": 23248,
+            "company": "Amazon",
+            "isSelected": false,
+            "products": null
         },
         {
-            "name": "Bob",
-            "id": 23458
+            "name": "Netflix",
+            "id": 23458,
+            "company": "Cisco",
+            "isSelected": false,
+            "products": null
         }
     ],
     "productDatas": [

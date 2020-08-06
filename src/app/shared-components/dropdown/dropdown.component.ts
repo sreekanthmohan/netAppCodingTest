@@ -1,22 +1,35 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import { TestDataInterface } from 'src/app/models/common.model';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
+import { FilterInterface } from 'src/app/models/common.model';
 
 @Component({
   selector: 'app-dropdown',
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss']
 })
-export class DropdownComponent implements OnInit {
+export class DropdownComponent implements OnInit, OnChanges {
 
-  @Input() list: TestDataInterface[];
+  @Input() list: FilterInterface[];
+  @Input() listUpdate: FilterInterface[];
   @Input() header: string;
-  @Output() selectItem = new EventEmitter<TestDataInterface>();
+  @Output() selectedFilters = new EventEmitter<FilterInterface>();
 
   inputItem: string;
-  filteredList: TestDataInterface[];
+  filteredList: FilterInterface[];
   canShow: boolean;
+  filters: Array<string> = [];
 
   constructor() { }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.listUpdate) {
+      if (!this.listUpdate.length && this.filteredList) {
+        this.resetFilter();
+      } else {
+        this.updateFilter(this.listUpdate)
+      }
+    }
+    // console.log(changes)
+  }
 
   ngOnInit() { }
 
@@ -28,6 +41,19 @@ export class DropdownComponent implements OnInit {
     }
   }
 
+  updateFilter(listUpdate: Array<FilterInterface>) {
+    listUpdate.forEach(item => {
+      const itemAdded = this.filteredList.find(data => data.id === item.id);
+      if (item.isSelected && itemAdded) itemAdded.isSelected = true;
+    })
+  }
+
+  resetFilter() {
+    this.filteredList.forEach(item => {
+      item.isSelected = false;
+    })
+  }
+
   onInputClick() {
     if (!this.inputItem) {
       this.filteredList = [...this.list];
@@ -35,10 +61,23 @@ export class DropdownComponent implements OnInit {
     }
   }
 
-  onItemSelection(item: TestDataInterface) {
-    this.inputItem = item.name;
-    this.selectItem.emit(item);
-    this.resetForm();
+  // addFilter(item: string) {
+  //   this.filters.push(item);
+  //   console.log('added', this.filters);    
+  // }
+
+  // removeFilter(item: string) {
+  //   const index = this.filters.indexOf(item);
+  //   if (index > 0) this.filters.splice(index, 1);
+  //   console.log('added', this.filters);
+  // }
+
+  onFilterSelection(item: FilterInterface) {
+    // console.log('item', item);
+
+    // this.inputItem = item.name;
+    this.selectedFilters.emit(item);
+    // this.resetForm();
   }
 
   resetForm() {

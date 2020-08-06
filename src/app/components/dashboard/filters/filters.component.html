@@ -1,0 +1,13 @@
+<div *ngIf="filters$ | async as data; else noFilter">
+    <mat-form-field class="example-chip-list">
+        <mat-chip-list #chipList aria-label="Fruit selection">
+            <mat-chip *ngFor="let filter of data?.filters" (removed)="removeFilter(filter)">
+                {{filter.name}}
+                <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+        </mat-chip-list>
+    </mat-form-field>
+</div>
+<ng-template #noFilter>
+    Click the checkbox above to reveal hidden content!
+</ng-template>

@@ -1,10 +1,12 @@
 import { Component, OnInit, ApplicationRef } from '@angular/core';
 import { CommonService } from '../../services/common.service';
-import { TestDataInterface } from 'src/app/models/common.model';
-import { ProductService } from 'src/app/services/product.service';
+import { FilterInterface, Users, Filters } from 'src/app/models/common.model';
 import { UserService } from 'src/app/services/user.service';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { CommonConstants } from 'src/app/constants/common-constants';
+import { select } from '@angular-redux/store';
+import { UsersActions } from 'src/app/actions/users.actions';
+import { FilterActions } from 'src/app/actions/filter.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,42 +15,64 @@ import { CommonConstants } from 'src/app/constants/common-constants';
 })
 export class DashboardComponent implements OnInit {
 
-  userData: Array<TestDataInterface>;
-  productData: Array<TestDataInterface>;
+  userData: Array<Users>;
+  // productData: Array<FilterInterface>;
+  companyFilter: Array<FilterInterface>;
+  companyFilterUpdate: Array<FilterInterface>;
+
+  @select('users') public users$: Observable<Users>;
+  @select('filters') public filters$: Observable<Filters>;
 
   constants = CommonConstants;
 
   constructor(private commonService: CommonService,
-    private productService: ProductService,
-    private userService: UserService) { }
+    private userService: UserService,
+    public userActions: UsersActions,
+    private filterActions: FilterActions) {
+      
+  }
 
   ngOnInit() {
     this.handleData();
+    this.users$.subscribe((users: Users) => {
+      if (users) this.companyFilter = this.getCompanyFlter(users);
+      console.log('users', users);
+
+    });
+    this.filters$.subscribe((resp: Filters) => {
+      // if (users) this.companyFilter = this.getCompanyFlter(users);
+      console.log('filters', resp);
+      this.companyFilterUpdate = [...resp.filters];
+    });
   }
+
+  getCompanyFlter(users: Users) {
+    // return 
+    const companyFilter: Array<FilterInterface> = users.list.map(user => {
+      return {
+        id: user.id,
+        name: user.company,
+        isSelected: false,
+      }
+    })
+    return companyFilter;
+  }
+
 
   handleData() {
     if (!this.commonService.isDataAvailable()) {
       this.commonService.setData();
-      this.getDatas();
+      this.userActions.getUsers();
+      this.filterActions.getFilters();
+      // this.getDatas();
     } else {
-      this.getDatas();
+      this.userActions.getUsers();
     }
   }
 
-  getDatas() {
-    const productData = this.productService.getContent();
-    const userData = this.userService.getContent();
-    combineLatest([productData, userData]).subscribe(([productsData, usersData]) => {
-      this.productData = productsData;
-      this.userData = usersData;
-    }, err => {
-      alert(CommonConstants.dataFetchError);
-      console.log(CommonConstants.dataFetchError, err);
-    });
-  }
-
-  itemSelcted(item: TestDataInterface) {
+  companyFilters(item: FilterInterface) {
+    item.isSelected ? this.filterActions.addFilter(item) : this.filterActions.deleteFilter(item.id);
     console.log(CommonConstants.itemId, item);
-    alert(CommonConstants.itemId + item.id);
+    // alert(CommonConstants.itemId + item.id);
   }
 }
