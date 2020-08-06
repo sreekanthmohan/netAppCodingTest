@@ -1,6 +1,6 @@
 export const CommonConstants = {
     userdata: 'userData',
-    filters: 'filters',
+    filters: 'Filters',
     filterData: 'filterData',
     dataFetchError: 'Data Loading Failed, Something Went Wrong',
     itemId: 'Selected Item Id',
@@ -9,5 +9,6 @@ export const CommonConstants = {
     apply: 'Apply',
     userId: 'User Id',
     userName: 'User Name',
-    company: 'Company'
+    company: 'Company',
+    filteredUsers: 'Filtered Users'
 };

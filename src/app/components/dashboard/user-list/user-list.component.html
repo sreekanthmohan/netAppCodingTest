@@ -1,13 +1,16 @@
 <div class="user-wrapper">
     <mat-card class="wrapper-card">
-        <div class="user-card-wrapper">
-            <span *ngFor="let user of userData">
-                <mat-card *ngIf="user?.isSelected" class="user-card">
-                    <div>{{constants.userId}}: {{user.id}}</div>
-                    <div>{{constants.userName}}: {{user.name}}</div>
-                    <div>{{constants.company}}: {{user.company}}</div>
-                </mat-card>
-            </span>
+        <div class="user-panel-wrapper">
+            <div>{{constants.filteredUsers}}</div>
+            <div class="user-card-wrapper">
+                <span *ngFor="let user of userData">
+                    <mat-card *ngIf="user?.isSelected" class="user-card">
+                        <div>{{constants.userId}}: {{user.id}}</div>
+                        <div>{{constants.userName}}: {{user.name}}</div>
+                        <div>{{constants.company}}: {{user.company}}</div>
+                    </mat-card>
+                </span>
+            </div>
         </div>
     </mat-card>
 </div>

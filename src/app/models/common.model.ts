@@ -5,11 +5,11 @@ export interface UserDatas {
 }
 
 export interface User {
-    id?: number;
-    name?: string;
-    company?: string;
-    isSelected?: boolean;
-    products?: Array<string>;
+    id: number;
+    name: string;
+    company: string;
+    isSelected: boolean;
+    products: Array<string>;
 }
 
 export interface FilterInterface {
