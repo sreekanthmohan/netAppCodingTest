@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { User, FilterInterface } from '../models/common.model';
 import { Observable, of } from 'rxjs';
 import { CommonConstants } from '../constants/common-constants';
+import { User, DropdownInterface } from '../users/users.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class UserService {
     return of(respData);
   }
 
-  getFilters(): Observable<FilterInterface[]> {
+  getFilters(): Observable<DropdownInterface[]> {
     const filters = localStorage.getItem(CommonConstants.filters);
     const respData = JSON.parse(filters);
     return of(respData);

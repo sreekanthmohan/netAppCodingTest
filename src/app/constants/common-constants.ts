@@ -10,5 +10,6 @@ export const CommonConstants = {
     userId: 'User Id',
     userName: 'User Name',
     company: 'Company',
-    filteredUsers: 'Filtered Users'
+    filteredUsers: 'Filtered Users',
+    somethingWrong: 'Something Went Wrong'
 };

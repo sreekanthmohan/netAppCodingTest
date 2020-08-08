@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
-import { FilterInterface } from 'src/app/models/common.model';
+import { DropdownInterface } from 'src/app/users/users.model';
 
 @Component({
   selector: 'app-dropdown',
@@ -8,13 +8,13 @@ import { FilterInterface } from 'src/app/models/common.model';
 })
 export class DropdownComponent implements OnInit, OnChanges {
 
-  @Input() list: FilterInterface[];
-  @Input() listUpdate: FilterInterface[];
+  @Input() list: DropdownInterface[];
+  @Input() listUpdate: DropdownInterface[];
   @Input() header: string;
-  @Output() selectedFilters = new EventEmitter<FilterInterface[]>();
+  @Output() selectedFilters = new EventEmitter<DropdownInterface[]>();
 
   inputItem: string;
-  filteredList: FilterInterface[];
+  filteredList: DropdownInterface[];
   canShow: boolean;
   filters: Array<string> = [];
 
@@ -41,7 +41,7 @@ export class DropdownComponent implements OnInit, OnChanges {
     }
   }
 
-  updateFilter(listUpdate: Array<FilterInterface>) {
+  updateFilter(listUpdate: Array<DropdownInterface>) {
     const newList = [...this.filteredList];
     listUpdate.forEach(item => {
       const itemAdded = newList.find(data => data.id === item.id);
@@ -62,7 +62,7 @@ export class DropdownComponent implements OnInit, OnChanges {
     }
   }
 
-  onFilterSelection(list: FilterInterface[]) {
+  onFilterSelection(list: DropdownInterface[]) {
     this.selectedFilters.emit(list);
   }
 

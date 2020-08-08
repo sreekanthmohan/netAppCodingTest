@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { IAppState } from '../store/index';
 import { NgRedux } from '@angular-redux/store';
-// import { User } from '../model/users';
-// import { Http } from '@angular/http';
 import { UserService } from '../services/user.service';
-import { User, FilterInterface } from '../models/common.model';
+import { User, DropdownInterface } from '../users/users.model';
 
 @Injectable()
 export class UsersActions {
@@ -14,11 +12,8 @@ export class UsersActions {
   static FILTERS_GET = 'FILTERS_GET';
   static FILTERS_UPDATE = 'FILTERS_UPDATE';
 
-  // API_URL = 'https://jsonplaceholder.typicode.com';
-
   constructor(
     private ngRedux: NgRedux<IAppState>,
-    // private http: Http,
     private userService: UserService
   ) {
   }
@@ -26,7 +21,6 @@ export class UsersActions {
   getUsers() {
     this.userService.getContent()
       .subscribe((res) => {
-        // get users
         const users = res;
         this.ngRedux.dispatch({
           type: UsersActions.USERS_GET,
@@ -52,7 +46,7 @@ export class UsersActions {
     });
   }
 
-  updateFilters(filters: FilterInterface[]) {
+  updateFilters(filters: DropdownInterface[]) {
     this.ngRedux.dispatch({
       type: UsersActions.FILTERS_UPDATE,
       payload: {

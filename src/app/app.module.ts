@@ -4,24 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { DropdownComponent } from './shared-components/dropdown/dropdown.component';
 import { NgReduxModule } from '@angular-redux/store';
 import { NgRedux, DevToolsExtension } from '@angular-redux/store';
 import { IAppState, rootReducer } from './store';
 import { UsersActions } from './actions/users.actions';
-import { UserListComponent } from './components/dashboard/user-list/user-list.component';
-import { FiltersComponent } from './components/dashboard/filters/filters.component';
 import { MaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UsersModule } from './users/users.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { DropdownModule } from './shared/dropdown/dropdown.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
-    DropdownComponent,
-    UserListComponent,
-    FiltersComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +24,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     NgReduxModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    UsersModule,
+    DashboardModule,
+    DropdownModule
   ],
   providers: [UsersActions],
   bootstrap: [AppComponent]

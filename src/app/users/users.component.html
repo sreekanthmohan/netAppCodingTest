@@ -1,0 +1,12 @@
+<div class="users-wrapper">
+    <div class="filter-wrapper">
+        <app-filters [filters]="usersData.companyFilterUpdate"></app-filters>
+    </div>
+    <div *ngIf="usersData.companyFilter" class="filter-selection-wrapper">
+        <app-dropdown [list]="usersData.companyFilter" [header]="constants.searchUsers"
+            (selectedFilters)="companyFilters($event)" [listUpdate]="usersData.companyFilterUpdate"></app-dropdown>
+    </div>
+    <div class="user-wrapper">
+        <app-user-list [usersData]="usersData"></app-user-list>
+    </div>
+</div>

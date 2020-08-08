@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FilterInterface } from 'src/app/models/common.model';
 import { select } from '@angular-redux/store';
 import { UsersActions } from 'src/app/actions/users.actions';
-import { CommonConstants } from '../../../constants/common-constants'
+import { CommonConstants } from '../../constants/common-constants'
+import { DropdownInterface } from '../users.model';
 
 @Component({
   selector: 'app-filters',
@@ -12,22 +12,15 @@ import { CommonConstants } from '../../../constants/common-constants'
 })
 export class FiltersComponent implements OnInit {
 
-  @select(['userDatas', 'filters']) public filters$: Observable<FilterInterface[]>;
-
-  filters: FilterInterface[] = [];
-  displayFilter: FilterInterface[] = [];
+  @Input() filters: DropdownInterface[] = [];
 
   constants = CommonConstants;
 
   constructor(public userActions: UsersActions) { }
 
-  ngOnInit() {
-    this.filters$.subscribe((filters: FilterInterface[]) => {
-      this.filters = filters;
-    });
-  }
+  ngOnInit() { }
 
-  removeFilter(filter: FilterInterface) {
+  removeFilter(filter: DropdownInterface) {
     const removedFilter = this.filters.find(item => item.id === filter.id);
     if (removedFilter) removedFilter.isSelected = false;
     this.userActions.updateFilters(this.filters);

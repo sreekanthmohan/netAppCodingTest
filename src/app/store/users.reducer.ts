@@ -1,5 +1,5 @@
 import { UsersActions } from '../actions/users.actions';
-import { UserDatas } from '../models/common.model';
+import { UserDatas } from '../users/users.model';
 // import { Users } from '../model/users';
 
 const INITIAL_STATE: UserDatas = {
