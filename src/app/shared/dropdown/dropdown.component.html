@@ -1,9 +1,10 @@
 <div class="dropdown-wrapper">
     <h1>{{header}}</h1>
     <input type="text" autocomplete="off" (click)="onInputClick()" data-toggle="dropdown" name="search"
-        placeholder="Search.." [(ngModel)]="inputItem" (keyup)="onkeyup($event.target.value)">
-    <ul class="dropdown-menu" *ngIf="filteredList && filteredList?.length && canShow">
-        <li class="list-item" *ngFor="let data of filteredList">{{data.name}}
+        placeholder="Search.." [(ngModel)]="dropdownData.inputItem" (keyup)="onkeyup($event.target.value)">
+    <ul class="dropdown-menu"
+        *ngIf="dropdownData.filteredList && dropdownData.filteredList?.length && dropdownData.canShow">
+        <li class="list-item" *ngFor="let data of dropdownData.filteredList">{{data.name}}
             <input type="checkbox" [(ngModel)]="data.isSelected" (change)="onFilterSelection(list)"></li>
     </ul>
 </div>

@@ -1,7 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs';
-import { select } from '@angular-redux/store';
-import { UsersActions } from 'src/app/actions/users.actions';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { CommonConstants } from '../../constants/common-constants'
 import { DropdownInterface } from '../users.model';
 
@@ -13,21 +10,17 @@ import { DropdownInterface } from '../users.model';
 export class FiltersComponent implements OnInit {
 
   @Input() filters: DropdownInterface[] = [];
+  @Output() applyFilter = new EventEmitter<boolean>();
 
   constants = CommonConstants;
 
-  constructor(public userActions: UsersActions) { }
+  constructor() { }
 
   ngOnInit() { }
 
   removeFilter(filter: DropdownInterface) {
+    this.applyFilter.emit(false);
     const removedFilter = this.filters.find(item => item.id === filter.id);
     if (removedFilter) removedFilter.isSelected = false;
-    this.userActions.updateFilters(this.filters);
   }
-
-  applyFilter() {
-    this.userActions.applyFilter(true);
-  }
-
 }

@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
-import { IAppState } from '../store/index';
+import { IAppState } from './index';
 import { NgRedux } from '@angular-redux/store';
 import { UserService } from '../services/user.service';
-import { User, DropdownInterface } from '../users/users.model';
+import { User } from '../users/users.model';
 
 @Injectable()
 export class UsersActions {
   static USERS_GET = 'USERS_GET';
   static USERS_UPDATE = 'USERS_UPDATE';
-  static FILTER_APPLY = 'FILTER_APPLY';
-  static FILTERS_GET = 'FILTERS_GET';
-  static FILTERS_UPDATE = 'FILTERS_UPDATE';
 
   constructor(
     private ngRedux: NgRedux<IAppState>,
@@ -39,29 +36,4 @@ export class UsersActions {
       }
     });
   }
-
-  getFilters() {
-    this.ngRedux.dispatch({
-      type: UsersActions.FILTERS_GET
-    });
-  }
-
-  updateFilters(filters: DropdownInterface[]) {
-    this.ngRedux.dispatch({
-      type: UsersActions.FILTERS_UPDATE,
-      payload: {
-        filters
-      }
-    });
-  }
-
-  applyFilter(status: boolean) {
-    this.ngRedux.dispatch({
-      type: UsersActions.FILTER_APPLY,
-      payload: {
-        applyFilter: status
-      }
-    });
-  }
-
 }

@@ -3,3 +3,10 @@ export interface DropdownInterface {
     name: string;
     isSelected: boolean;
 }
+
+export class DropdownModel {
+    inputItem: string;
+    filteredList: DropdownInterface[];
+    canShow: boolean;
+    filters: Array<string> = [];
+}

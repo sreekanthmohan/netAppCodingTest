@@ -1,7 +1,5 @@
 export interface UserDatas {
     users: User[];
-    filters: DropdownInterface[];
-    applyFilter: boolean;
 }
 
 export interface User {
@@ -22,7 +20,6 @@ export class UsersDataModel {
     companyFilter: Array<DropdownInterface> = [];
     companyFilterUpdate: Array<DropdownInterface> = [];
     users: User[] = [];
-    applyFilter: boolean = null;
     constructor() { }
 }
 

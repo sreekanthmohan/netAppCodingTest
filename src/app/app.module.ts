@@ -4,10 +4,12 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { NgReduxModule } from '@angular-redux/store';
 import { NgRedux, DevToolsExtension } from '@angular-redux/store';
 import { IAppState, rootReducer } from './store';
-import { UsersActions } from './actions/users.actions';
+import { UsersActions } from './store/users.actions';
+
 import { MaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersModule } from './users/users.module';
@@ -27,7 +29,7 @@ import { DropdownModule } from './shared/dropdown/dropdown.module';
     BrowserAnimationsModule,
     UsersModule,
     DashboardModule,
-    DropdownModule
+    DropdownModule,
   ],
   providers: [UsersActions],
   bootstrap: [AppComponent]
@@ -37,7 +39,6 @@ export class AppModule {
     private ngRedux: NgRedux<IAppState>,
     private devTool: DevToolsExtension
   ) {
-
     this.ngRedux.configureStore(
       rootReducer,
       {} as IAppState,
