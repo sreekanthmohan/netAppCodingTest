@@ -6,15 +6,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { NgReduxModule } from '@angular-redux/store';
-import { NgRedux, DevToolsExtension } from '@angular-redux/store';
-import { IAppState, rootReducer } from './store';
-import { UsersActions } from './store/users.actions';
+import { EffectsModule } from '@ngrx/effects';
 
 import { MaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersModule } from './users/users.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { DropdownModule } from './shared/dropdown/dropdown.module';
+import { RootEffects } from './store/users.effects';
+import { StoreModule } from '@ngrx/store';
+import { fromRoot } from './store';
 
 @NgModule({
   declarations: [
@@ -30,20 +31,12 @@ import { DropdownModule } from './shared/dropdown/dropdown.module';
     UsersModule,
     DashboardModule,
     DropdownModule,
+    EffectsModule.forRoot([RootEffects]),
+    StoreModule.forRoot({
+      rootState: fromRoot.rootReducer
+    }),
   ],
-  providers: [UsersActions],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
-  constructor(
-    private ngRedux: NgRedux<IAppState>,
-    private devTool: DevToolsExtension
-  ) {
-    this.ngRedux.configureStore(
-      rootReducer,
-      {} as IAppState,
-      [ ],
-      [ devTool.isEnabled() ? devTool.enhancer() : f => f]
-    );
-  }
-}
+export class AppModule {}

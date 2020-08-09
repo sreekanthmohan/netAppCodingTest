@@ -1,6 +1,4 @@
-export interface UserDatas {
-    users: User[];
-}
+import { Observable } from 'rxjs';
 
 export interface User {
     id: number;
@@ -20,6 +18,8 @@ export class UsersDataModel {
     companyFilter: Array<DropdownInterface> = [];
     companyFilterUpdate: Array<DropdownInterface> = [];
     users: User[] = [];
+    error$: Observable<string>;
+    data$: Observable<User[]>;
     constructor() { }
 }
 

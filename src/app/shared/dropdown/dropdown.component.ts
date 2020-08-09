@@ -21,23 +21,23 @@ export class DropdownComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.listUpdate) {
       if (!this.list || this.list.length) return;
-      if (!this.listUpdate.length) {
-        this.resetFilter();
-      } else {
-        this.updateFilter(this.listUpdate);
-      }
+      !this.listUpdate.length && this.dropdownData && this.dropdownData.filteredList
+        ? this.resetFilter() : this.updateFilter(this.listUpdate);
     }
   }
 
   onkeyup(value: string) {
-    if (value) {
-      this.dropdownData.filteredList = this.list.filter((item) => item.name.toLowerCase().includes(value.toLowerCase()));
-    } else {
-      this.dropdownData.filteredList = [...this.list];
-    }
+    this.dropdownData.filteredList = value ? this.list.filter((item) => item.name.toLowerCase().includes(value.toLowerCase()))
+      : this.dropdownData.filteredList = [...this.list]
+    // if (value) {
+    //   this.dropdownData.filteredList = this.list.filter((item) => item.name.toLowerCase().includes(value.toLowerCase()));
+    // } else {
+    //   this.dropdownData.filteredList = [...this.list];
+    // }
   }
 
   updateFilter(listUpdate: Array<DropdownInterface>) {
+    if (listUpdate || this.dropdownData || this.dropdownData.filteredList) return;
     const newList = [...this.dropdownData.filteredList];
     listUpdate.forEach(item => {
       const itemAdded = newList.find(data => data.id === item.id);
@@ -48,14 +48,13 @@ export class DropdownComponent implements OnChanges {
   resetFilter() {
     this.dropdownData.filteredList.forEach(item => {
       item.isSelected = false;
-    })
+    });
   }
 
   onInputClick() {
-    if (!this.dropdownData.inputItem) {
-      this.dropdownData.filteredList = [...this.list];
-      this.dropdownData.canShow = !this.dropdownData.canShow;
-    }
+    if (this.dropdownData.inputItem) return
+    this.dropdownData.filteredList = [...this.list];
+    this.dropdownData.canShow = !this.dropdownData.canShow;
   }
 
   onFilterSelection(list: DropdownInterface[]) {

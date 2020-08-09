@@ -1,15 +1,9 @@
-import { combineReducers } from 'redux';
+import { ApiError, ApiSuccess, ApiGetMockData, ApiGetMockDataWithError } from './users.actions';
+import { RootEffects } from './users.effects';
+import { rootReducer } from './users.reducer';
+import { getStateError, getStateSelectedData } from './selectors';
 
-import { UsersReducer } from './users.reducer';
-import { UserDatas } from '../users/users.model';
-// import { Users } from '../model/users';
-
-export class IAppState {
-  userDatas: UserDatas;
-}
-
-export const rootReducer = combineReducers<IAppState>({
-  userDatas: UsersReducer,
-});
-
+export const fromRoot = {
+  ApiError, ApiSuccess, ApiGetMockData, rootReducer, RootEffects, ApiGetMockDataWithError, getStateError, getStateSelectedData
+};
 

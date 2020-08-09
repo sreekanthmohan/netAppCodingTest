@@ -11,14 +11,15 @@ export class CommonService {
 
   isDataAvailable() {
     const userData = localStorage.getItem(CommonConstants.userdata);
-    // const productData = localStorage.getItem(CommonConstants.filterData);
     return !userData ? false : true;
   }
 
   setData() {
     const userData = JSON.stringify(Datas.userDatas);
-    // const filterData = JSON.stringify([]);
     localStorage.setItem(CommonConstants.userdata, userData);
-    // localStorage.setItem(CommonConstants.filterData, filterData);
+  }
+
+  deeplCloneArray(data: Array<any>) {
+    return data.map(x => Object.assign({}, x));
   }
 }

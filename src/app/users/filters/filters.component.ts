@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { CommonConstants } from '../../constants/common-constants'
 import { DropdownInterface } from '../users.model';
 
@@ -7,7 +7,7 @@ import { DropdownInterface } from '../users.model';
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.scss']
 })
-export class FiltersComponent implements OnInit {
+export class FiltersComponent {
 
   @Input() filters: DropdownInterface[] = [];
   @Output() applyFilter = new EventEmitter<boolean>();
@@ -15,8 +15,6 @@ export class FiltersComponent implements OnInit {
   constants = CommonConstants;
 
   constructor() { }
-
-  ngOnInit() { }
 
   removeFilter(filter: DropdownInterface) {
     this.applyFilter.emit(false);

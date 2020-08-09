@@ -1,20 +1,19 @@
-import { UsersActions } from './users.actions';
-import { UserDatas } from '../users/users.model';
-// import { Users } from '../model/users';
+import { createReducer, on } from '@ngrx/store';
 
-const INITIAL_STATE: UserDatas = {
-  users: [],
-};
+// !! ApiGetMockData and ApiGetMockDataWithError not used because it is handled in ./effects
+import { ApiGetMockData, ApiError, ApiSuccess, ApiGetMockDataWithError } from './users.actions';
 
-export function UsersReducer(state: UserDatas = INITIAL_STATE, action: any): any {
-
-  switch (action.type) {
-    case UsersActions.USERS_GET:
-      const users = action.payload.users;
-      return Object.assign({}, state, { users });
-
-    default:
-      return state;
-  }
+export interface RootState {
+  error: any;
+  selectedMockData: { id: string, data: string };
 }
 
+export const initialState: RootState = {
+  error: null,
+  selectedMockData: null,
+}
+
+export const rootReducer = createReducer(initialState,
+  on(ApiError, (state, action) => ({ error: action.error, selectedMockData: null })),
+  on(ApiSuccess, (state, action) => ({ selectedMockData: action.users, error: null })),
+);

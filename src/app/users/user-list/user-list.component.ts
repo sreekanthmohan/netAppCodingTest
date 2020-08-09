@@ -1,7 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges, AfterViewInit } from '@angular/core';
-import { select } from '@angular-redux/store';
-import { Observable } from 'rxjs';
-import { UsersActions } from 'src/app/store/users.actions';
+import { Component, OnInit, Input } from '@angular/core';
 import { CommonConstants } from '../../constants/common-constants'
 import { DropdownInterface, User } from '../users.model';
 
@@ -10,7 +7,7 @@ import { DropdownInterface, User } from '../users.model';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent {
 
   @Input() companyFilter: DropdownInterface[];
   @Input() users: User[];
@@ -18,8 +15,6 @@ export class UserListComponent implements OnInit {
   constants = CommonConstants;
 
   constructor() { }
-
-  ngOnInit() { }
 
   filterUsers() {
     this.companyFilter.forEach(filter => {

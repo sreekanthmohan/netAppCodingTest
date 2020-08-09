@@ -2,7 +2,7 @@
     <mat-card class="wrapper-card">
         <div class="user-panel-wrapper">
             <div>{{constants.filteredUsers}}</div>
-            <div class="user-card-wrapper">
+            <div class="user-card-wrapper" *ngIf="users?.length">
                 <span *ngFor="let user of users">
                     <mat-card *ngIf="user?.isSelected" class="user-card">
                         <div>{{constants.userId}}: {{user.id}}</div>

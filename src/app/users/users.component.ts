@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UnsubscribeOnDestroyAdapter } from '../subsink/unsubscribe-on-destroy-adapter';
 import { UsersDataModel, DropdownInterface, User } from './users.model';
-import { Observable } from 'rxjs';
 import { CommonService } from '../services/common.service';
-import { UsersActions } from '../store/users.actions';
-import { select } from '@angular-redux/store';
 import { CommonConstants } from '../constants/common-constants'
 import { UserListComponent } from './user-list/user-list.component';
+import { Store } from '@ngrx/store';
+import { fromRoot } from '../store/index';
+import { RootState } from '../store/users.reducer';
 
 @Component({
   selector: 'app-users',
@@ -19,24 +19,35 @@ export class UsersComponent extends UnsubscribeOnDestroyAdapter implements OnIni
 
   usersData = new UsersDataModel();
 
-  @select(['userDatas', 'users']) public users$: Observable<User[]>;
-
   constants = CommonConstants;
 
   constructor(private commonService: CommonService,
-    private userActions: UsersActions) {
+    private store: Store<{ rootState: RootState }>) {
     super();
+    this.usersData.error$ = this.store.select(fromRoot.getStateError);
+    this.usersData.data$ = this.store.select(fromRoot.getStateSelectedData);
   }
 
   ngOnInit() {
     this.handleData();
-    this.addSubscriptions();
+    this.addSuccessSubscriptions();
+    // this.addErrorSubscriptions();
   }
 
-  addSubscriptions() {
-    this.users$.subscribe((users: User[]) => {
-      this.usersData.users = [...users];
-      if (users) this.usersData.companyFilter = this.getCompanyFlter(users);
+  addSuccessSubscriptions() {
+    this.usersData.data$.subscribe((users: User[]) => {
+      if (!users) return;
+      this.usersData.users = this.commonService.deeplCloneArray(users);
+      if (users) this.usersData.companyFilter = this.getCompanyFlter([...users]);
+    }, err => {
+      alert(this.constants.somethingWrong);
+    });
+  }
+
+  addErrorSubscriptions() {
+    this.usersData.error$.subscribe((error: string) => {
+      if (!error) return;
+      alert(error);
     });
   }
 
@@ -52,12 +63,16 @@ export class UsersComponent extends UnsubscribeOnDestroyAdapter implements OnIni
   }
 
   handleData() {
-    if (!this.commonService.isDataAvailable()) {
-      this.commonService.setData();
-      this.userActions.getUsers();
-    } else {
-      this.userActions.getUsers();
-    }
+    if (!this.commonService.isDataAvailable()) this.commonService.setData();
+    this.getApiData();
+  }
+
+  getApiData() {
+    this.store.dispatch(fromRoot.ApiGetMockData({ id: 'randomId' }));
+  }
+
+  getError() {
+    this.store.dispatch(fromRoot.ApiGetMockDataWithError({ id: 'randomId' }));
   }
 
   companyFilters(item: DropdownInterface[]) {
